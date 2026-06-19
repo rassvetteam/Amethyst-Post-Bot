@@ -2,6 +2,8 @@
 
 A small Telegram bot for publishing Telegram Rich Markdown posts from plain text or uploaded `.md` files.
 
+Russian documentation: [README_RU.md](README_RU.md).
+
 The bot accepts a post, validates media links, converts a few convenient custom blocks, and sends the result through `sendRichMessage`.
 
 ## Features

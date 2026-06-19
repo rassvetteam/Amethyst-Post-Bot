@@ -1,45 +1,45 @@
 ![](https://telegram.org/img/t_logo.png "Amethyst")
 
-# Welcome to Amethyst
+# Добро пожаловать на Amethyst
 
-Looking for a cozy roleplay server with a focus on Create-style engineering, events, and collaborative building? This post shows the format that Amethyst Post Bot can publish.
+Ищете уютный RP-сервер с упором на инженерные проекты, события и совместное строительство? Этот пример показывает формат поста, который может опубликовать Amethyst Post Bot.
 
-**Season 6 is open now.**
+**Шестой сезон уже открыт.**
 
 <aside>
-A short highlighted note can be placed in an aside block.
-<cite>Amethyst Team</cite>
+Короткий акцентный блок можно использовать для важной заметки, новости или цитаты.
+<cite>Команда Amethyst</cite>
 </aside>
 
-:::details What can I post with this bot?
-You can send a Markdown message directly to the bot or upload a UTF-8 `.md` file.
+:::details Что можно отправлять в этот бот?
+Вы можете отправить Markdown прямо сообщением или загрузить UTF-8 файл с расширением `.md`.
 :::
 
-:::details open Which blocks are supported?
-The bot supports details, open details, collage, and slideshow directives.
+:::details open Какие блоки поддерживаются?
+Бот поддерживает раскрывающиеся блоки, открытые раскрывающиеся блоки, коллажи и слайд-шоу.
 :::
 
 :::collage
-![](https://telegram.org/img/t_logo.png "Community news")
-![](https://telegram.org/img/t_logo.png "Server update")
+![](https://telegram.org/img/t_logo.png "Новости сообщества")
+![](https://telegram.org/img/t_logo.png "Обновление сервера")
 :::
 
-## Application
+## Как получить проходку
 
-Register on the website, fill in the application form, and wait for approval. Once approved, you can join the server.
+Зарегистрируйтесь на сайте, заполните анкету и дождитесь одобрения. После этого вы сможете зайти на сервер.
 
-:::details Can I use local images?
-No. Media URLs must use `http://` or `https://` so Telegram can fetch them.
+:::details Можно ли использовать локальные картинки?
+Нет. Ссылки на медиа должны начинаться с `http://` или `https://`, чтобы Telegram смог их загрузить.
 :::
 
 :::slideshow
-![](https://telegram.org/img/t_logo.png "Step 1")
-![](https://telegram.org/img/t_logo.png "Step 2")
+![](https://telegram.org/img/t_logo.png "Шаг 1")
+![](https://telegram.org/img/t_logo.png "Шаг 2")
 :::
 
-Inline spoiler example: ||approval usually takes less than a day||.
+Пример спойлера: ||обычно заявка рассматривается меньше суток||.
 
-Formula rendering check:
+Проверка отображения сложной формулы:
 
 $$
 \forall x \in \mathbb{R},\quad
