@@ -64,6 +64,9 @@ Hidden content goes here.
 :::
 ```
 
+<img width="509" height="121" alt="изображение" src="https://github.com/user-attachments/assets/cff55120-aca7-44a7-ba25-61d31bb92acf" />
+
+
 Expanded by default:
 
 ```md
@@ -81,6 +84,9 @@ This content starts open.
 :::
 ```
 
+<img width="509" height="257" alt="изображение" src="https://github.com/user-attachments/assets/e731bf11-7c87-4297-9944-35a73d5eed23" />
+
+
 ### Slideshow
 
 ```md
@@ -89,6 +95,9 @@ This content starts open.
 ![](https://example.com/slide-2.jpg)
 :::
 ```
+
+<img width="502" height="489" alt="изображение" src="https://github.com/user-attachments/assets/b97e5131-39dd-42e6-a820-60a8f0a2af21" />
+
 
 Media links in Markdown images and HTML `src` attributes must start with `http://` or `https://`. Local paths are rejected because Telegram cannot fetch them.
 
