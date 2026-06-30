@@ -1,45 +1,45 @@
 ![](https://telegram.org/img/t_logo.png "Amethyst")
 
-# Добро пожаловать на Amethyst
+# Welcome to Amethyst
 
-Ищете уютный RP-сервер с упором на инженерные проекты, события и совместное строительство? Этот пример показывает формат поста, который может опубликовать Amethyst Post Bot.
+Looking for a welcoming role-playing server focused on engineering projects, events, and collaborative building? This example demonstrates a post that Amethyst Post Bot can format.
 
-**Шестой сезон уже открыт.**
+**The sixth season is now open.**
 
 <aside>
-Короткий акцентный блок можно использовать для важной заметки, новости или цитаты.
-<cite>Команда Amethyst</cite>
+A short callout can highlight an important note, announcement, or quote.
+<cite>The Amethyst team</cite>
 </aside>
 
-:::details Что можно отправлять в этот бот?
-Вы можете отправить Markdown прямо сообщением или загрузить UTF-8 файл с расширением `.md`.
+:::details What can I send to this bot?
+You can send Markdown in a message or upload a UTF-8 file with the `.md` extension.
 :::
 
-:::details open Какие блоки поддерживаются?
-Бот поддерживает раскрывающиеся блоки, открытые раскрывающиеся блоки, коллажи и слайд-шоу.
+:::details open Which blocks are supported?
+The bot supports details blocks, expanded details blocks, collages, and slideshows.
 :::
 
 :::collage
-![](https://telegram.org/img/t_logo.png "Новости сообщества")
-![](https://telegram.org/img/t_logo.png "Обновление сервера")
+![](https://telegram.org/img/t_logo.png "Community news")
+![](https://telegram.org/img/t_logo.png "Server update")
 :::
 
-## Как получить проходку
+## How to join
 
-Зарегистрируйтесь на сайте, заполните анкету и дождитесь одобрения. После этого вы сможете зайти на сервер.
+Register on the website, submit the application, and wait for approval. You can join the server once it is approved.
 
-:::details Можно ли использовать локальные картинки?
-Нет. Ссылки на медиа должны начинаться с `http://` или `https://`, чтобы Telegram смог их загрузить.
+:::details Can I use local images?
+No. Media URLs must start with `http://` or `https://` so Telegram can fetch them.
 :::
 
 :::slideshow
-![](https://telegram.org/img/t_logo.png "Шаг 1")
-![](https://telegram.org/img/t_logo.png "Шаг 2")
+![](https://telegram.org/img/t_logo.png "Step 1")
+![](https://telegram.org/img/t_logo.png "Step 2")
 :::
 
-Пример спойлера: ||обычно заявка рассматривается меньше суток||.
+Spoiler example: ||applications are usually reviewed within one day||.
 
-Проверка отображения сложной формулы:
+Complex formula rendering test:
 
 $$
 \forall x \in \mathbb{R},\quad

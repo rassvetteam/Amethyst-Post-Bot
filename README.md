@@ -1,17 +1,19 @@
 # Amethyst Post Bot
 
-A small Telegram bot for publishing Telegram Rich Markdown posts from plain text or uploaded `.md` files.
+A free, non-commercial Telegram bot that converts plain Markdown or uploaded `.md` files into Telegram Rich Markdown posts. It has no channel or chat subscription requirement and does not advertise or sell anything.
 
-Russian documentation: [README_RU.md](README_RU.md).
+The bot works in private chats. It validates media links, converts several convenient custom blocks, and returns the formatted result through `sendRichMessage`.
 
-The bot accepts a post, validates media links, converts a few convenient custom blocks, and sends the result through `sendRichMessage`.
+### Telegram bot: @amthpostbot
 
 ## Features
 
-- Accepts Markdown sent as a Telegram message or as a UTF-8 `.md` file.
-- Converts short custom directives into Telegram Rich Markdown HTML blocks.
+- Free to use without subscriptions, payments, accounts, or promotional steps.
+- Accepts Markdown as a Telegram message or a UTF-8 `.md` file.
+- Converts `details`, `collage`, and `slideshow` directives into Telegram Rich Markdown blocks.
 - Validates Markdown and HTML media URLs before sending.
-- Uses only the Python standard library.
+- Supports an optional SOCKS5/SOCKS5H proxy.
+- Provides an example through `/example` and the **Show example** button.
 
 ## Requirements
 
@@ -19,55 +21,69 @@ The bot accepts a post, validates media links, converts a few convenient custom 
 - A Telegram bot token from BotFather.
 - A Bot API endpoint that supports `sendRichMessage`.
 
+The bot does not need to be an administrator or member of any channel or group.
+
 ## Quick Start
 
-1. Copy the environment template:
+1. Install the dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Copy the environment template:
 
    ```bash
    cp .env.example .env
    ```
 
-2. Edit `.env`:
+3. Set your bot token in `.env`:
 
    ```env
    TELEGRAM_BOT_TOKEN=123456789:your_real_bot_token
+   TELEGRAM_PROXY_URL=
    ```
 
-3. Run the bot:
+4. Start the bot:
 
    ```bash
    python main.py
    ```
 
-4. Open your Telegram bot and send `/help`.
+5. Open the bot in Telegram and send `/start`.
 
 ## Configuration
 
-The bot reads `.env` from the project directory by default. Real secrets must stay in `.env`; this file is ignored by Git.
+The bot reads `.env` from the project directory by default. Real secrets must stay in `.env`; Git ignores this file.
 
 | Variable | Required | Description |
 | --- | --- | --- |
 | `TELEGRAM_BOT_TOKEN` | Yes | Bot token from BotFather. |
-| `BOT_ENV_FILE` | No | Optional path to another env file. Set it as an environment variable before launch. |
+| `BOT_API_BASE` | No | Bot API base URL. Defaults to `https://api.telegram.org`. |
+| `TELEGRAM_PROXY_URL` | No | Optional SOCKS5/SOCKS5H proxy URL. |
+| `BOT_ENV_FILE` | No | Optional path to a different environment file. |
 
 Environment variables take priority over values from `.env`.
 
-## Mini Guide
+## Commands
 
-Send a Markdown post directly to the bot, or upload a UTF-8 `.md` file. The bot checks the content and either publishes it or replies with line-based validation errors.
+- `/start` — displays the format guide and example button.
+- `/help` — displays the format guide and example button.
+- `/example` — sends the source of `sample_post.md` followed by the formatted rich post.
 
-Use standard Markdown plus these extra blocks:
+Messages from groups, channels, and other non-private chats are ignored to prevent accidental output outside the user's private conversation.
 
-### Details
+## Post Format
+
+Send standard Markdown directly or upload a UTF-8 `.md` file. The bot replies with line-based validation errors when the content is invalid.
+
+Details block:
 
 ```md
 :::details FAQ
 Hidden content goes here.
 :::
 ```
-
-<img width="509" height="121" alt="изображение" src="https://github.com/user-attachments/assets/cff55120-aca7-44a7-ba25-61d31bb92acf" />
-
 
 Expanded by default:
 
@@ -77,7 +93,7 @@ This content starts open.
 :::
 ```
 
-### Collage
+Collage:
 
 ```md
 :::collage
@@ -86,10 +102,7 @@ This content starts open.
 :::
 ```
 
-<img width="509" height="257" alt="изображение" src="https://github.com/user-attachments/assets/e731bf11-7c87-4297-9944-35a73d5eed23" />
-
-
-### Slideshow
+Slideshow:
 
 ```md
 :::slideshow
@@ -98,17 +111,17 @@ This content starts open.
 :::
 ```
 
-<img width="502" height="489" alt="изображение" src="https://github.com/user-attachments/assets/b97e5131-39dd-42e6-a820-60a8f0a2af21" />
+Media links in Markdown images and HTML `src` attributes must start with `http://` or `https://`. Telegram cannot fetch local file paths.
 
+See [sample_post.md](sample_post.md) for a complete example.
 
-Media links in Markdown images and HTML `src` attributes must start with `http://` or `https://`. Local paths are rejected because Telegram cannot fetch them.
+## License
 
-## Example Post
-
-See [sample_post.md](sample_post.md) for a full post that uses details, collage, slideshow, spoiler text, and a complex math block.
+This project is provided for non-commercial use under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. See [LICENSE](LICENSE).
 
 ## Release Checklist
 
-- Keep `.env` out of Git.
-- Use `.env.example` for public configuration examples.
-- Rotate any bot token that was ever committed or shared publicly before creating a GitHub release.
+- Keep `.env` out of Git and use `.env.example` for public configuration examples.
+- Rotate any bot token that was ever committed or shared publicly.
+- Check syntax with `python -m py_compile main.py`.
+- Test `/start`, `/help`, `/example`, a text post, a `.md` upload, and an invalid media URL.
