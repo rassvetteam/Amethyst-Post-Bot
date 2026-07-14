@@ -15,6 +15,10 @@ The bot works in private chats. It validates media links, converts several conve
 - Supports an optional SOCKS5/SOCKS5H proxy.
 - Provides an example through `/example` and the **Show example** button.
 
+## Examples
+<img width="506" height="629" alt="изображение" src="https://github.com/user-attachments/assets/aa85dd3b-7934-4c95-b971-530d2cb420fb" />
+
+
 ## Requirements
 
 - Python 3.10 or newer.
@@ -85,6 +89,9 @@ Hidden content goes here.
 :::
 ```
 
+<img width="505" height="123" alt="изображение" src="https://github.com/user-attachments/assets/e975577f-6e3f-4d3f-9a88-01b70dbb629b" />
+
+
 Expanded by default:
 
 ```md
@@ -102,6 +109,8 @@ Collage:
 :::
 ```
 
+<img width="506" height="259" alt="изображение" src="https://github.com/user-attachments/assets/bcb74cc8-1b89-461c-b9d6-04bebff5e80c" />
+
 Slideshow:
 
 ```md
@@ -110,6 +119,8 @@ Slideshow:
 ![](https://example.com/slide-2.jpg)
 :::
 ```
+
+<img width="502" height="491" alt="изображение" src="https://github.com/user-attachments/assets/1e1ee592-1bdc-4248-82c4-d63423249826" />
 
 Media links in Markdown images and HTML `src` attributes must start with `http://` or `https://`. Telegram cannot fetch local file paths.
 
