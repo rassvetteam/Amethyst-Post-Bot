@@ -458,10 +458,7 @@ def main_keyboard(config: BotConfig) -> dict[str, Any]:
     return {
         "inline_keyboard": [
             [{"text": "Show example", "callback_data": CALLBACK_SHOW_EXAMPLE}],
-            [
-                {"text": "Channel", "url": config.channel_url},
-                {"text": "Chat", "url": config.chat_url},
-            ],
+            [{"text": "Channel", "url": config.channel_url}],
         ]
     }
 
@@ -470,7 +467,6 @@ def subscription_keyboard(config: BotConfig) -> dict[str, Any]:
     return {
         "inline_keyboard": [
             [{"text": "Subscribe to channel", "url": config.channel_url}],
-            [{"text": "Open chat", "url": config.chat_url}],
             [{"text": "Check subscription", "callback_data": CALLBACK_CHECK_SUBSCRIPTION}],
         ]
     }
@@ -483,7 +479,7 @@ async def send_subscription_required(
     reason: str = "",
 ) -> None:
     text = (
-        "Before creating posts, please subscribe to the Amethyst SMP channel. "
+        "Before creating posts, please subscribe to the RassvetTeam channel. "
         "After that, click «Check subscription»."
     )
     if reason:
