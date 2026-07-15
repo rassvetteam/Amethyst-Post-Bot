@@ -1,50 +1,53 @@
-![](https://telegram.org/img/t_logo.png "Amethyst")
+![](https://telegram.org/img/t_logo.png "Amethyst Post Bot")
 
-# Добро пожаловать на Amethyst
+# Amethyst Post Bot Format Showcase
 
-Ищете уютный RP-сервер с упором на инженерные проекты, события и совместное строительство? Этот пример показывает формат поста, который может опубликовать Amethyst Post Bot.
+This post demonstrates the formatting features supported by Amethyst Post Bot.
 
-**Шестой сезон уже открыт.**
+You can combine headings, bold text, spoilers, expandable sections, media collections, quotes, and mathematical formulas in a single post.
+
+**All elements below are included for demonstration purposes.**
 
 <aside>
-Короткий акцентный блок можно использовать для важной заметки, новости или цитаты.
-<cite>Команда Amethyst</cite>
+Use an accent block to highlight an important announcement, warning, note, or quotation.
+<cite>Amethyst Post Bot</cite>
 </aside>
 
-:::details Что можно отправлять в этот бот?
-Вы можете отправить Markdown прямо сообщением или загрузить UTF-8 файл с расширением `.md`.
+:::details What can I send to the bot?
+You can send Markdown directly in a message or upload a UTF-8 encoded file with the `.md` extension.
+
+:::details open What does an expanded block look like?
+This section is displayed in its expanded state by default.
+
+It can contain multiple paragraphs, **bold text**, ||spoilers||, links, and other supported formatting.
 :::
 
-:::details open Какие блоки поддерживаются?
-Бот поддерживает раскрывающиеся блоки, открытые раскрывающиеся блоки, коллажи и слайд-шоу.
+## Image Collage
+
+A collage displays several images together in a compact layout.
+
+## Slideshow
+
+A slideshow allows readers to browse multiple images one at a time.
+
+## Spoilers
+
+Spoilers can hide additional information until the reader opens it.
+
+Example: ||this text is hidden by default||.
+
+:::details Can local images be used?
+No. Media links must begin with `http://` or `https://` so Telegram can download and process them.
 :::
 
-:::collage
-![](https://telegram.org/img/t_logo.png "Новости сообщества")
-![](https://telegram.org/img/t_logo.png "Обновление сервера")
-:::
+## Formula Rendering
 
-## Как получить проходку
-
-Зарегистрируйтесь на сайте, заполните анкету и дождитесь одобрения. После этого вы сможете зайти на сервер.
-
-:::details Можно ли использовать локальные картинки?
-Нет. Ссылки на медиа должны начинаться с `http://` или `https://`, чтобы Telegram смог их загрузить.
-:::
-
-:::slideshow
-![](https://telegram.org/img/t_logo.png "Шаг 1")
-![](https://telegram.org/img/t_logo.png "Шаг 2")
-:::
-
-Пример спойлера: ||обычно заявка рассматривается меньше суток||.
-
-Проверка отображения сложной формулы:
+The bot can also process complex mathematical expressions:
 
 $$
 \forall x \in \mathbb{R},\quad
 F(x)=\sum_{n=1}^{\infty}\frac{(-1)^{n+1}x^{2n}}{n!}
-+\int_{0}^{\pi}\sin(t)\,dt
++\int_{0}^{\pi}\sin(t),dt
 -\prod_{k=1}^{m}(k+1)
 +\sqrt{\frac{a^2+b^2}{c^2}}
 \neq \varnothing,
@@ -53,3 +56,17 @@ F(x)=\sum_{n=1}^{\infty}\frac{(-1)^{n+1}x^{2n}}{n!}
 \leq \zeta \geq \eta
 \Rightarrow \theta \Leftrightarrow \lambda
 $$
+
+## End of the Demonstration
+
+This example includes:
+
+* headings and subheadings;
+* bold text;
+* accent blocks and citations;
+* collapsed and expanded sections;
+* image collages;
+* slideshows;
+* spoilers;
+* mathematical formulas.
+  :::
