@@ -15,27 +15,27 @@ from pathlib import Path
 from typing import Any
 
 
-HELP_TEXT = """Отправьте мне пост в Telegram Rich Markdown текстом или загрузите UTF-8 файл .md.
+HELP_TEXT = """Send me a Telegram Rich Markdown post as text or upload a UTF-8 .md file.
 
-Поддерживаемые блоки:
+Supported blocks:
 
-:::details Заголовок
-Скрытый текст
+:::details Title
+Hidden text
 :::
 
-:::details open Заголовок
-Раскрытый текст
+:::details open Title
+Expanded text
 :::
 
 :::collage
-![](https://example.com/photo.jpg "Подпись")
+![](https://example.com/photo.jpg "Caption")
 :::
 
 :::slideshow
 ![](https://example.com/photo.jpg)
 :::
 
-Медиа должны использовать ссылки http:// или https://.
+Media must use http:// or https:// URLs.
 """
 
 
@@ -98,7 +98,7 @@ class TelegramAPIError(RuntimeError):
         self.method = method
         self.description = description
         self.error_code = error_code
-        prefix = f"Метод Telegram {method} завершился ошибкой"
+        prefix = f"Method Telegram {method} failed"
         if error_code is not None:
             prefix += f" ({error_code})"
         super().__init__(f"{prefix}: {description}")
@@ -137,7 +137,7 @@ class TelegramAPI:
             raise TelegramAPIError(method, str(exc)) from exc
 
         if not data.get("ok"):
-            raise TelegramAPIError(method, data.get("description", "Неизвестная ошибка"), data.get("error_code"))
+            raise TelegramAPIError(method, data.get("description", "Unknown error"), data.get("error_code"))
         return data.get("result")
 
     async def download_file(self, file_path: str, timeout: int = 30) -> bytes:
@@ -163,7 +163,7 @@ def load_config() -> BotConfig:
 
     token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
     if not token:
-        raise SystemExit("TELEGRAM_BOT_TOKEN обязателен. Укажите его в .env или переменных окружения.")
+        raise SystemExit("TELEGRAM_BOT_TOKEN is required. Please specify it in .env or environment variables.")
 
     api_base = os.getenv("BOT_API_BASE", "https://api.telegram.org").strip() or "https://api.telegram.org"
     required_channel = os.getenv("REQUIRED_CHANNEL", "@AmethystSMPChannel").strip() or "@AmethystSMPChannel"
@@ -191,14 +191,14 @@ def build_url_opener(proxy_url: str) -> urllib.request.OpenerDirector | None:
     parsed = urllib.parse.urlparse(proxy_url)
     scheme = parsed.scheme.lower()
     if scheme not in {"socks5", "socks5h"}:
-        raise SystemExit("TELEGRAM_PROXY_URL должен начинаться с socks5:// или socks5h://.")
+        raise SystemExit("TELEGRAM_PROXY_URL must start with socks5:// or socks5h://.")
     if not parsed.hostname or not parsed.port:
-        raise SystemExit("TELEGRAM_PROXY_URL должен содержать host и port.")
+        raise SystemExit("TELEGRAM_PROXY_URL must contain host and port.")
 
     try:
         import socks
     except ImportError as exc:
-        raise SystemExit("Для SOCKS-прокси установите зависимости: pip install -r requirements.txt") from exc
+        raise SystemExit("For SOCKS proxy, install dependencies: pip install -r requirements.txt") from exc
 
     username = urllib.parse.unquote(parsed.username) if parsed.username else None
     password = urllib.parse.unquote(parsed.password) if parsed.password else None
@@ -258,13 +258,13 @@ def load_env_file(path: str | os.PathLike[str] | None = None) -> None:
         if not stripped or stripped.startswith("#"):
             continue
         if "=" not in stripped:
-            raise SystemExit(f"Некорректная строка {line_number} в {env_path}: ожидается KEY=VALUE.")
+            raise SystemExit(f"Invalid line {line_number} in {env_path}: expected KEY=VALUE.")
 
         key, value = stripped.split("=", 1)
         key = key.strip()
         value = value.strip()
         if not key:
-            raise SystemExit(f"Некорректная строка {line_number} в {env_path}: пустой ключ.")
+            raise SystemExit(f"Invalid line {line_number} in {env_path}: empty key.")
         if len(value) >= 2 and value[0] == value[-1] and value[0] in {'"', "'"}:
             value = value[1:-1]
 
@@ -279,7 +279,7 @@ def prepare_rich_markdown(source: str) -> MarkdownResult:
     errors = validate_media_urls(source)
     markdown = converted.markdown.strip()
     if not markdown:
-        errors.append(ValidationError(1, "Пост пустой после обработки."))
+        errors.append(ValidationError(1, "Post is empty after processing."))
     return MarkdownResult(markdown=markdown, errors=errors)
 
 
@@ -294,7 +294,7 @@ def convert_directives(source: str) -> MarkdownResult:
 
         if stripped == ":::":
             if not stack:
-                errors.append(ValidationError(line_number, "Закрывающий блок без открывающего блока."))
+                errors.append(ValidationError(line_number, "Closing block without opening block."))
                 continue
             output.append(stack.pop().closing_tag)
             continue
@@ -316,7 +316,7 @@ def convert_directives(source: str) -> MarkdownResult:
         output.append(line)
 
     for frame in reversed(stack):
-        errors.append(ValidationError(frame.line, f"Блок {frame.name!r} не закрыт. Добавьте строку :::."))
+        errors.append(ValidationError(frame.line, f"Block {frame.name!r} is not closed. Add a line :::."))
 
     return MarkdownResult(markdown="\n".join(output), errors=errors)
 
@@ -330,22 +330,22 @@ def open_directive(name: str, args: str, line_number: int) -> tuple[list[str], s
             title = args[5:].strip()
 
         if not title:
-            return ValidationError(line_number, "Блоку details нужен заголовок.")
+            return ValidationError(line_number, "Block details requires a title.")
 
         tag = "<details open>" if is_open else "<details>"
         return [tag, f"<summary>{title}</summary>"], "</details>"
 
     if name == "collage":
         if args:
-            return ValidationError(line_number, "Блок collage не принимает аргументы.")
+            return ValidationError(line_number, "Block collage does not accept arguments.")
         return ["<tg-collage>"], "</tg-collage>"
 
     if name == "slideshow":
         if args:
-            return ValidationError(line_number, "Блок slideshow не принимает аргументы.")
+            return ValidationError(line_number, "Block slideshow does not accept arguments.")
         return ["<tg-slideshow>"], "</tg-slideshow>"
 
-    return ValidationError(line_number, f"Неизвестный блок {name!r}.")
+    return ValidationError(line_number, f"Unknown block {name!r}.")
 
 
 def validate_media_urls(source: str) -> list[ValidationError]:
@@ -362,12 +362,12 @@ def validate_media_urls(source: str) -> list[ValidationError]:
         for match in MARKDOWN_IMAGE_RE.finditer(line):
             url = match.group("url").strip("<>")
             if not is_http_url(url):
-                errors.append(ValidationError(line_number, f"Ссылка на медиа должна начинаться с http:// или https://: {url}"))
+                errors.append(ValidationError(line_number, f"Media link must start with http:// or https://: {url}"))
 
         for match in HTML_MEDIA_RE.finditer(line):
             url = match.group("url")
             if not is_http_url(url):
-                errors.append(ValidationError(line_number, f"HTML src для медиа должен начинаться с http:// или https://: {url}"))
+                errors.append(ValidationError(line_number, f"HTML src for media must start with http:// or https://: {url}"))
 
     return errors
 
@@ -378,9 +378,9 @@ def is_http_url(url: str) -> bool:
 
 
 def format_errors(errors: list[ValidationError]) -> str:
-    lines = ["Не могу отправить этот пост:"]
+    lines = ["Cannot send this post:"]
     for error in errors:
-        lines.append(f"строка {error.line}: {error.message}")
+        lines.append(f"line {error.line}: {error.message}")
     return "\n".join(lines)
 
 
@@ -424,18 +424,18 @@ async def send_example(api: TelegramAPI, chat_id: int | str) -> None:
     try:
         source = SAMPLE_POST_FILE.read_text(encoding="utf-8-sig")
     except OSError as exc:
-        await send_text(api, chat_id, f"Не удалось прочитать пример поста: {exc}")
+        await send_text(api, chat_id, f"Cannot read example post: {exc}")
         return
 
-    await send_text(api, chat_id, f"Пример MD-файла поста:\n\n```md\n{source}\n```")
-    await send_text(api, chat_id, "Так будет выглядеть готовый rich-post:")
+    await send_text(api, chat_id, f"Example MD file:\n\n```md\n{source}\n```")
+    await send_text(api, chat_id, "This is how the finished rich-post will look:")
     await handle_markdown(api, chat_id, source)
 
 
 async def handle_document(api: TelegramAPI, chat_id: int | str, document: dict[str, Any]) -> None:
     file_name = document.get("file_name") or ""
     if not file_name.lower().endswith(".md"):
-        await send_text(api, chat_id, "Не могу отправить этот пост:\nстрока 1: загрузите файл .md.")
+        await send_text(api, chat_id, "Cannot send this post:\nline 1: please upload a .md file.")
         return
 
     try:
@@ -448,7 +448,7 @@ async def handle_document(api: TelegramAPI, chat_id: int | str, document: dict[s
     try:
         source = raw.decode("utf-8-sig")
     except UnicodeDecodeError:
-        await send_text(api, chat_id, "Не могу отправить этот пост:\nстрока 1: файл .md должен быть в кодировке UTF-8.")
+        await send_text(api, chat_id, "Cannot send this post:\nline 1: the .md file must be in UTF-8 encoding.")
         return
 
     await handle_markdown(api, chat_id, source)
@@ -457,10 +457,10 @@ async def handle_document(api: TelegramAPI, chat_id: int | str, document: dict[s
 def main_keyboard(config: BotConfig) -> dict[str, Any]:
     return {
         "inline_keyboard": [
-            [{"text": "Показать пример", "callback_data": CALLBACK_SHOW_EXAMPLE}],
+            [{"text": "Show example", "callback_data": CALLBACK_SHOW_EXAMPLE}],
             [
-                {"text": "Канал", "url": config.channel_url},
-                {"text": "Чат", "url": config.chat_url},
+                {"text": "Channel", "url": config.channel_url},
+                {"text": "Chat", "url": config.chat_url},
             ],
         ]
     }
@@ -469,9 +469,9 @@ def main_keyboard(config: BotConfig) -> dict[str, Any]:
 def subscription_keyboard(config: BotConfig) -> dict[str, Any]:
     return {
         "inline_keyboard": [
-            [{"text": "Подписаться на канал", "url": config.channel_url}],
-            [{"text": "Открыть чат", "url": config.chat_url}],
-            [{"text": "Проверить подписку", "callback_data": CALLBACK_CHECK_SUBSCRIPTION}],
+            [{"text": "Subscribe to channel", "url": config.channel_url}],
+            [{"text": "Open chat", "url": config.chat_url}],
+            [{"text": "Check subscription", "callback_data": CALLBACK_CHECK_SUBSCRIPTION}],
         ]
     }
 
@@ -483,8 +483,8 @@ async def send_subscription_required(
     reason: str = "",
 ) -> None:
     text = (
-        "Перед созданием постов подпишитесь на канал Amethyst SMP. "
-        "После этого нажмите «Проверить подписку»."
+        "Before creating posts, please subscribe to the Amethyst SMP channel. "
+        "After that, click «Check subscription»."
     )
     if reason:
         text += f"\n\n{reason}"
@@ -510,9 +510,9 @@ def is_chat_member(member: dict[str, Any]) -> bool:
 
 def inaccessible_member_list_reason() -> str:
     return (
-        "Автоматическая проверка сейчас недоступна: Telegram не даёт боту доступ к списку участников. "
-        "Это настройка канала, а не ошибка подписки пользователя. "
-        "Добавьте бота администратором в канал с правом видеть участников, затем нажмите «Проверить подписку» ещё раз."
+        "Automatic verification is currently unavailable: Telegram does not allow the bot to access the member list. "
+        "This is a channel setting, not a user subscription error. "
+        "Add the bot as an administrator to the channel with the permission to view members, then click «Check subscription» again."
     )
 
 
@@ -527,17 +527,16 @@ async def check_chat_membership(api: TelegramAPI, chat_id: str, user_id: int) ->
         print(exc, file=sys.stderr)
         if "member list is inaccessible" in exc.description.lower():
             return SubscriptionCheckResult(False, inaccessible_member_list_reason())
-        return SubscriptionCheckResult(False, f"Не удалось проверить подписку в {chat_id}: {exc.description}")
+        return SubscriptionCheckResult(False, f"Failed to check subscription in {chat_id}: {exc.description}")
 
     if is_chat_member(member):
         return SubscriptionCheckResult(True)
-    return SubscriptionCheckResult(False, f"Подписка в {chat_id} пока не найдена.")
+    return SubscriptionCheckResult(False, f"Subscription in {chat_id} not found.")
 
 
 async def check_required_subscriptions(api: TelegramAPI, config: BotConfig, user_id: int | None) -> SubscriptionCheckResult:
     if user_id is None:
-        return SubscriptionCheckResult(False, "Не удалось определить пользователя Telegram.")
-
+        return SubscriptionCheckResult(False, "Failed to determine Telegram user.")
     now = time.monotonic()
     cached = SUBSCRIPTION_CACHE.get(user_id)
     if cached is not None:
@@ -581,18 +580,18 @@ async def handle_callback_query(api: TelegramAPI, config: BotConfig, callback_qu
     data = callback_query.get("data")
 
     if chat_id is None:
-        schedule_callback_answer(api, callback_query_id, "Не удалось определить чат.")
+        schedule_callback_answer(api, callback_query_id, "Failed to determine chat.")
         return
 
     if not is_private_chat(chat):
-        schedule_callback_answer(api, callback_query_id, "Бот работает только в личных сообщениях.")
+        schedule_callback_answer(api, callback_query_id, "The bot works only in private messages.")
         return
 
     if data not in {CALLBACK_SHOW_EXAMPLE, CALLBACK_CHECK_SUBSCRIPTION}:
-        schedule_callback_answer(api, callback_query_id, "Неизвестное действие.")
+        schedule_callback_answer(api, callback_query_id, "Unknown action.")
         return
 
-    schedule_callback_answer(api, callback_query_id, "Проверяю подписку...")
+    schedule_callback_answer(api, callback_query_id, "Checking subscription...")
     subscription = await check_required_subscriptions(api, config, user_id)
     if not subscription.ok:
         await send_subscription_required(api, config, chat_id, subscription.reason)
@@ -645,7 +644,7 @@ async def handle_update(api: TelegramAPI, config: BotConfig, update: dict[str, A
         await handle_document(api, chat_id, document)
         return
 
-    await send_text(api, chat_id, "Отправьте пост текстом или загрузите файл .md.", main_keyboard(config))
+    await send_text(api, chat_id, "Send a post as text or upload a .md file.", main_keyboard(config))
 
 
 async def polling_loop(api: TelegramAPI, config: BotConfig) -> None:
@@ -680,10 +679,10 @@ async def verify_api_connection(api: TelegramAPI, config: BotConfig) -> None:
     except TelegramAPIError as exc:
         if config.proxy_url and looks_like_proxy_error(exc):
             raise SystemExit(
-                "Не удалось подключиться к Telegram через SOCKS-прокси.\n"
-                "Проверьте, что прокси доступен, логин/пароль верные, порт открыт и прокси разрешает подключение к Telegram.\n"
-                "Для локального запуска без прокси временно очистите TELEGRAM_PROXY_URL в .env.\n"
-                f"Техническая ошибка: {exc.description}"
+                "Failed to connect to Telegram through SOCKS proxy.\n"
+                "Check that the proxy is available, the username/password are correct, the port is open, and the proxy allows connections to Telegram.\n"
+                "For local startup without a proxy, temporarily clear TELEGRAM_PROXY_URL in .env.\n"
+                f"Technical error: {exc.description}"
             ) from exc
         raise
 
