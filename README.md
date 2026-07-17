@@ -1,10 +1,23 @@
+<div align="center">
+
 # Amethyst Post Bot
 
-A free, non-commercial Telegram bot that converts plain Markdown or uploaded `.md` files into Telegram Rich Markdown posts. It has no channel or chat subscription requirement and does not advertise or sell anything.
+[![Stars](https://img.shields.io/github/stars/rassvetteam/Amethyst-Post-Bot?style=flat&logo=github)](https://github.com/rassvetteam/Amethyst-Post-Bot/stargazers)
+[![Forks](https://img.shields.io/github/forks/rassvetteam/Amethyst-Post-Bot?style=flat&logo=github)](https://github.com/rassvetteam/Amethyst-Post-Bot/network/members)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![Telegram](https://img.shields.io/badge/Telegram-Bot-26A5E4?logo=telegram&logoColor=white)](https://t.me/amthpostbot)
+[![Markdown](https://img.shields.io/badge/input-Markdown%20%2F%20.md-purple)](#post-format)
+[![Rich Posts](https://img.shields.io/badge/output-Rich%20Markdown-8A2BE2)](#features)
+[![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](LICENSE)
+[![Free](https://img.shields.io/badge/use-free%20%26%20non--commercial-success)](#license)
 
-The bot works in private chats. It validates media links, converts several convenient custom blocks, and returns the formatted result through `sendRichMessage`.
+Free Telegram bot that turns Markdown (or a `.md` file) into Telegram Rich Markdown posts — no subscriptions, no ads, private chats only.
 
-### Telegram bot: @amthpostbot
+**Bot:** [@amthpostbot](https://t.me/amthpostbot)
+
+</div>
+
+---
 
 ## Features
 
