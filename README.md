@@ -2,47 +2,60 @@
 
 # Amethyst Post Bot
 
-[![Stars](https://img.shields.io/github/stars/rassvetteam/Amethyst-Post-Bot?style=flat&logo=github)](https://github.com/rassvetteam/Amethyst-Post-Bot/stargazers)
-[![Forks](https://img.shields.io/github/forks/rassvetteam/Amethyst-Post-Bot?style=flat&logo=github)](https://github.com/rassvetteam/Amethyst-Post-Bot/network/members)
-[![Python](https://img.shields.io/badge/python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![Telegram](https://img.shields.io/badge/Telegram-Bot-26A5E4?logo=telegram&logoColor=white)](https://t.me/amthpostbot)
-[![Markdown](https://img.shields.io/badge/input-Markdown%20%2F%20.md-purple)](#post-format)
-[![Rich Posts](https://img.shields.io/badge/output-Rich%20Markdown-8A2BE2)](#features)
-[![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](LICENSE)
-[![Free](https://img.shields.io/badge/use-free%20%26%20non--commercial-success)](#license)
+[![Stars](https://img.shields.io/github/stars/rassvetteam/Amethyst-Post-Bot?style=for-the-badge&logo=github)](https://github.com/rassvetteam/Amethyst-Post-Bot/stargazers)
+[![Forks](https://img.shields.io/github/forks/rassvetteam/Amethyst-Post-Bot?style=for-the-badge&logo=github)](https://github.com/rassvetteam/Amethyst-Post-Bot/network/members)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey?style=for-the-badge)](LICENSE)
 
-Free Telegram bot that turns Markdown (or a `.md` file) into Telegram Rich Markdown posts — no subscriptions, no ads, private chats only.
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![Telegram](https://img.shields.io/badge/Telegram-Bot-26A5E4?style=flat-square&logo=telegram&logoColor=white)](https://t.me/amthpostbot)
+[![Markdown](https://img.shields.io/badge/input-Markdown%20%2F%20.md-7B68EE?style=flat-square)](#post-format)
+[![Rich Posts](https://img.shields.io/badge/output-Rich%20Markdown-8A2BE2?style=flat-square)](#features)
+[![Free](https://img.shields.io/badge/use-free%20%26%20non--commercial-2ea44f?style=flat-square)](#license)
+[![Proxy](https://img.shields.io/badge/SOCKS5-optional-informational?style=flat-square)](#configuration)
 
-**Bot:** [@amthpostbot](https://t.me/amthpostbot)
+Free Telegram bot that turns Markdown (or a `.md` file) into Telegram **Rich Markdown** posts — no subscriptions, no ads, private chats only.
+
+<br/>
+
+**Bot:** [@amthpostbot](https://t.me/amthpostbot) · **[Features](#features)** · **[Quick Start](#quick-start)** · **[Post Format](#post-format)**
 
 </div>
 
 ---
 
+> [!IMPORTANT]
+> Non-commercial project under **CC BY-NC-SA 4.0**. Free to use for personal / non-commercial purposes — see [LICENSE](LICENSE).
+
+> [!TIP]
+> Open [@amthpostbot](https://t.me/amthpostbot), send `/start`, then try `/example` or the **Show example** button to see a finished rich post.
+
 ## Features
 
-- Free to use without subscriptions, payments, accounts, or promotional steps.
-- Accepts Markdown as a Telegram message or a UTF-8 `.md` file.
-- Converts `details`, `collage`, and `slideshow` directives into Telegram Rich Markdown blocks.
-- Validates Markdown and HTML media URLs before sending.
-- Supports an optional SOCKS5/SOCKS5H proxy.
-- Provides an example through `/example` and the **Show example** button.
+- Free to use — no subscriptions, payments, accounts, or promo steps
+- Accepts Markdown as a Telegram message or a UTF-8 `.md` file
+- Converts `details`, `collage`, and `slideshow` into Telegram Rich Markdown blocks
+- Validates Markdown and HTML media URLs before sending
+- Optional SOCKS5 / SOCKS5H proxy
+- Built-in example via `/example` and the **Show example** button
 
 ## Examples
-<img width="506" height="629" alt="изображение" src="https://github.com/user-attachments/assets/aa85dd3b-7934-4c95-b971-530d2cb420fb" />
 
+<p align="center">
+  <img width="506" height="629" alt="Example rich post" src="https://github.com/user-attachments/assets/aa85dd3b-7934-4c95-b971-530d2cb420fb" />
+</p>
 
 ## Requirements
 
-- Python 3.10 or newer.
-- A Telegram bot token from BotFather.
-- A Bot API endpoint that supports `sendRichMessage`.
+- Python **3.10** or newer
+- A Telegram bot token from [@BotFather](https://t.me/BotFather)
+- A Bot API endpoint that supports `sendRichMessage`
 
-The bot does not need to be an administrator or member of any channel or group.
+> [!NOTE]
+> The bot does **not** need to be an administrator or member of any channel or group. It works in **private chats** only.
 
 ## Quick Start
 
-1. Install the dependencies:
+1. Install dependencies:
 
    ```bash
    pip install -r requirements.txt
@@ -69,32 +82,36 @@ The bot does not need to be an administrator or member of any channel or group.
 
 5. Open the bot in Telegram and send `/start`.
 
+> [!WARNING]
+> Never commit a real bot token. Keep secrets in `.env` (Git-ignored). If a token was ever leaked — revoke it in BotFather and create a new one.
+
 ## Configuration
 
-The bot reads `.env` from the project directory by default. Real secrets must stay in `.env`; Git ignores this file.
+The bot reads `.env` from the project directory by default. Environment variables override values from the file.
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `TELEGRAM_BOT_TOKEN` | Yes | Bot token from BotFather. |
-| `BOT_API_BASE` | No | Bot API base URL. Defaults to `https://api.telegram.org`. |
-| `TELEGRAM_PROXY_URL` | No | Optional SOCKS5/SOCKS5H proxy URL. |
-| `BOT_ENV_FILE` | No | Optional path to a different environment file. |
-
-Environment variables take priority over values from `.env`.
+| `TELEGRAM_BOT_TOKEN` | Yes | Bot token from BotFather |
+| `BOT_API_BASE` | No | Bot API base URL (default `https://api.telegram.org`) |
+| `TELEGRAM_PROXY_URL` | No | Optional SOCKS5 / SOCKS5H proxy URL |
+| `BOT_ENV_FILE` | No | Optional path to another env file |
 
 ## Commands
 
-- `/start` — displays the format guide and example button.
-- `/help` — displays the format guide and example button.
-- `/example` — sends the source of `sample_post.md` followed by the formatted rich post.
+| Command | Description |
+| --- | --- |
+| `/start` | Format guide + example button |
+| `/help` | Same as `/start` |
+| `/example` | Sends `sample_post.md` source, then the formatted rich post |
 
-Messages from groups, channels, and other non-private chats are ignored to prevent accidental output outside the user's private conversation.
+> [!NOTE]
+> Messages from groups, channels, and other non-private chats are **ignored**, so nothing is posted outside your private conversation by accident.
 
 ## Post Format
 
-Send standard Markdown directly or upload a UTF-8 `.md` file. The bot replies with line-based validation errors when the content is invalid.
+Send standard Markdown as text, or upload a UTF-8 `.md` file. Invalid content gets line-based validation errors.
 
-Details block:
+### Details (collapsed)
 
 ```md
 :::details FAQ
@@ -102,10 +119,11 @@ Hidden content goes here.
 :::
 ```
 
-<img width="505" height="123" alt="изображение" src="https://github.com/user-attachments/assets/e975577f-6e3f-4d3f-9a88-01b70dbb629b" />
+<p align="center">
+  <img width="505" height="123" alt="Details block" src="https://github.com/user-attachments/assets/e975577f-6e3f-4d3f-9a88-01b70dbb629b" />
+</p>
 
-
-Expanded by default:
+### Details (open by default)
 
 ```md
 :::details open FAQ
@@ -113,7 +131,7 @@ This content starts open.
 :::
 ```
 
-Collage:
+### Collage
 
 ```md
 :::collage
@@ -122,9 +140,11 @@ Collage:
 :::
 ```
 
-<img width="506" height="259" alt="изображение" src="https://github.com/user-attachments/assets/bcb74cc8-1b89-461c-b9d6-04bebff5e80c" />
+<p align="center">
+  <img width="506" height="259" alt="Collage block" src="https://github.com/user-attachments/assets/bcb74cc8-1b89-461c-b9d6-04bebff5e80c" />
+</p>
 
-Slideshow:
+### Slideshow
 
 ```md
 :::slideshow
@@ -133,19 +153,22 @@ Slideshow:
 :::
 ```
 
-<img width="502" height="491" alt="изображение" src="https://github.com/user-attachments/assets/1e1ee592-1bdc-4248-82c4-d63423249826" />
+<p align="center">
+  <img width="502" height="491" alt="Slideshow block" src="https://github.com/user-attachments/assets/1e1ee592-1bdc-4248-82c4-d63423249826" />
+</p>
 
-Media links in Markdown images and HTML `src` attributes must start with `http://` or `https://`. Telegram cannot fetch local file paths.
+> [!CAUTION]
+> Media URLs in Markdown images and HTML `src` must start with `http://` or `https://`. Telegram **cannot** fetch local file paths.
 
-See [sample_post.md](sample_post.md) for a complete example.
+Full sample: [sample_post.md](sample_post.md).
 
 ## License
 
-This project is provided for non-commercial use under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. See [LICENSE](LICENSE).
+Non-commercial use under **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International**. See [LICENSE](LICENSE).
 
 ## Release Checklist
 
-- Keep `.env` out of Git and use `.env.example` for public configuration examples.
-- Rotate any bot token that was ever committed or shared publicly.
-- Check syntax with `python -m py_compile main.py`.
-- Test `/start`, `/help`, `/example`, a text post, a `.md` upload, and an invalid media URL.
+- [ ] Keep `.env` out of Git; use `.env.example` for public examples
+- [ ] Rotate any bot token that was committed or shared
+- [ ] `python -m py_compile main.py`
+- [ ] Smoke-test `/start`, `/help`, `/example`, a text post, a `.md` upload, and an invalid media URL
