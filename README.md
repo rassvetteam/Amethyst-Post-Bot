@@ -1,9 +1,9 @@
 <div align="center">
 
-# Amethyst Post Bot
+# Rich Post Bot
 
-[![Stars](https://img.shields.io/github/stars/rassvetteam/Amethyst-Post-Bot?style=for-the-badge&logo=github)](https://github.com/rassvetteam/Amethyst-Post-Bot/stargazers)
-[![Forks](https://img.shields.io/github/forks/rassvetteam/Amethyst-Post-Bot?style=for-the-badge&logo=github)](https://github.com/rassvetteam/Amethyst-Post-Bot/network/members)
+[![Stars](https://img.shields.io/github/stars/rassvetteam/Rich-Post-Bot?style=for-the-badge&logo=github)](https://github.com/rassvetteam/Rich-Post-Bot/stargazers)
+[![Forks](https://img.shields.io/github/forks/rassvetteam/Rich-Post-Bot?style=for-the-badge&logo=github)](https://github.com/rassvetteam/Rich-Post-Bot/network/members)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey?style=for-the-badge)](LICENSE)
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
